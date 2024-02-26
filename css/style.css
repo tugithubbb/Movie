@@ -1,0 +1,519 @@
+/* GLOBAL  */
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+html,body {
+    
+
+  font-family: "Roboto Condensed", sans-serif;
+  font-weight: 700;
+  color: #717171;
+  
+}
+/* viec con chuot ban phu mot noi dung  */
+::selection {
+    background-color: #ec7532;
+    color: white;
+}
+/* ĐƯỜNG GẠCH MÀU CAM DÙNG CHUNG CHO WEBSITE  */
+.line::after {
+    content: '';
+    width: 0;
+    /* vì nó bằng 100% li */
+    height: 3px;
+    background: linear-gradient(to right,#fbbd61,#ec7532);
+    display: block;
+    box-shadow: 0 0 20px 0 #fbbd61;
+    transition: all 0.5s;
+    /* 
+    GIÁ TRI THỨ !linear-gradient giúp tạo nhiều màu 
+    hướng trái màu trên,dưới, trái ,phải 
+    muốn trải từ trái sang phải thì to right
+     muốn trải từ phải sang trái thì to left
+      muốn trải từ trên  xuống thì to bottom
+       muốn trải từ dưới  lên thì to top
+       GIÁ TRỊ THỨ 2: màu bắt đầu
+       GIÁ TRỊ THỨ 3: màu kết thúc
+    */
+    /* vì thẻ after là gther inline nên ta thay bằng block  */
+
+}
+.line:hover::after {
+    width: 100%;
+
+}
+.line.active::after {
+    width: 100%;
+}
+.section {
+    padding: 75px 0;
+}
+.title {
+    color:#ec7532;
+    font-size: 1.125rem;
+    margin-bottom: 40px;
+    border-bottom: 1px solid #d8d8d8;
+    text-transform: uppercase;
+   
+}
+.title::after {
+    content: '';
+    background: linear-gradient(to right, #fbbd61,#ec7532);
+    width: 125px;
+    height: 4px;
+    display: block;
+}
+.title--white {
+    color: white;
+    border-bottom: 1px solid #333;
+    
+    
+    
+
+}
+
+/* HEADER  */
+header {
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 3;
+}
+header p {
+    font-size: 14px;
+    font-weight: 700;
+
+}
+#movieNavbar .navbar-nav {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+#movieNavbar .navbar-nav .nav-link {
+    color: white;
+    line-height: 0.8em;
+    letter-spacing: 3px;
+    padding: 20px 24px ;
+}
+#headerfix {
+    background-color: #101010;
+    position: fixed;
+    /* thuộc tính nó đi theo người dùng */
+    /* và bị mất kích thước của thẻ nên ta thêm lại cho nó */
+    top: 0;
+    width: 100%;
+    transform: translate(-50%,-100%);
+    z-index: 16;
+    
+}
+
+/* CAROUSEL  */
+#carouselmovie .carousel-caption {
+    /* căn giữa khi có thuộc tính absolute  */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    text-align: left;
+}
+/* first-child : thứ tự trước , loại thẻ  */
+/* first-of-type : loại thẻ, thứ tự sau */
+#carouselmovie .carousel-caption p:first-of-type {
+    font-size: 0.875rem;
+    color: #fbbd61;
+    letter-spacing: 2px;
+    margin: 0;
+    animation-delay: 0.5s;
+}
+#carouselmovie .carousel-caption p:last-of-type {
+    font-size: 1.125rem;
+    margin-bottom: 20px;
+}
+#carouselmovie .carousel-caption h2 {
+    font-size: 3.25rem;
+    letter-spacing: 3px;
+    margin-bottom: 10px;
+}
+.movieTrailer {
+    animation-delay: 0.5s;
+}
+.movieTrailer>span {
+    /* lấy thẻ con trực tiếp  */
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    border: 2px solid white;
+    font-size: 0.8rem;
+    display: inline-block;
+    /* cho chữ PG nằm vào trong hình tròn  */
+    text-align: center;
+    /* căn giữa theo chiều dọc  */
+    line-height: 48px;
+    margin-right: 8px;
+
+}
+#carouselmovie .movieTrailer button {
+    color: white;
+    background: linear-gradient(to right,#fbbd61,#ec7532);
+    padding: 12px 24px;
+    border: none;
+    border-radius: 30px;
+    font-size: 0.8rem;
+    letter-spacing: 4px;
+    position: relative;
+    overflow: hidden;
+    outline: none;
+    /* overflow: hidden; khi khai báo ở thẻ cha thì các thẻ con nằm ngoài thẻ cha thì bị xoá  */
+}
+
+/* B1 XÂY DỰNG overplay phủ lên thẻ cha (button) */
+.movieTrailer button::before {
+    content: '';
+    width: 110%;
+    height: 100%;
+    background-color: #ec7532;
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: block;
+    transform: skewX(30deg) translateX(-113%);
+    /* dùng translate để phủ hết thẻ cha  */
+    transition: all 0.5s;
+    z-index: 1;
+    
+
+}
+.movieTrailer button:hover::before {
+  
+    transform: skewX(30deg) translateX(-10px );
+}
+/* đã hover  */
+/* transform: skewX(30deg) translateX(-10px); */
+#carouselmovie .movieTrailer button span {
+    position: relative;
+    z-index: 2;
+    
+}
+#carouselmovie .carousel-indicators {
+    justify-content: flex-start;
+    /* căn ở bên trái  */
+    bottom: 50px;
+    left: 40%;
+    /* ở đây căn nó theo chiều ngang  */
+    transform: translate(-40%);
+    margin-right: 0;
+    margin-left: 0;
+    padding-right: 50px;
+    padding-left: 30px;
+
+}
+#carouselmovie .carousel-indicators button {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    border: 2px solid white;
+    background: transparent;
+    opacity: 1;
+    box-sizing: border-box;
+
+}
+#carouselmovie .carousel-indicators button.active {
+    background-color: white;
+}
+/* sữa phần màu đen phủ lên ảnh  */
+.movie__overplayblack {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to top,black,transparent);
+}
+
+/* NEW IN  */
+.newin__title {
+    text-align: center;
+}
+.newin__title h3 {
+    font-size: 18px;
+    color: #4a4a4a;
+    margin: 1rem 0;
+
+}
+.newin__title i {
+    color: #fbbd61;
+} 
+.newIn__img {
+    position: relative;
+overflow: hidden;
+border-radius: 10px;
+    
+}
+.newin__overplay {
+    width: 200%;
+    height: 100%;
+    top:0;
+    left: 0;
+    display: inline-block;
+    position: absolute;
+    background: linear-gradient(to bottom,#fbbd61,#ec7532 );
+    /* chưa hover là đẩy nó nằm ra ngoài thẻ cha  */
+    transform: skewX(30deg) translateX(-150%);
+    opacity: 0.9;
+    transition: 0.5s;
+}
+.newIn__img:hover .newin__overplay {
+    /* ĐÃ HOVER  */
+    transform: skewX(30deg) translateX(-30%); 
+}
+.newin__play {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: all 0.5s;
+}
+.newIn__img:hover .newin__play {
+    opacity: 1;
+}
+.newin__play i {
+    width: 80px;
+    height: 80px;
+    border: 2px solid white;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 80px;
+    /* giữ nguyên kích thước ban đầu của nó  */
+    transform: scale(1);
+    transition: all 0.5s;
+}
+.newin__play i:hover {
+    transform: scale(0.9);
+}
+.newin__play a {
+    color: white;
+    text-decoration: none;
+    text-transform: uppercase;
+    margin: 1rem 0;
+    font-size: 13px;
+    letter-spacing: 4px;
+    display: block;
+}
+.newin__play p {
+    color: white;
+}
+/* SHOWTIMES  */
+.Showtimes .nav-tabs .nav-item, .Showtimes .nav-tabs .nav-link.active {
+    border: none;
+}
+.Showtimes .nav-tabs .nav-link {
+    border: none;
+    padding: 0;
+    font-size: 18px;
+    letter-spacing: 1px;
+    color: #4a4a4a;
+    transition: all 0.5s;
+}
+.Showtimes .nav-tabs .nav-link.active:hover {
+    color: #ec7532;
+}
+.Showtimes .nav-tabs .nav-item {
+    margin-bottom: 0;
+} 
+.Showtimes .nav-tabs .nav-link span {
+    padding: 15px 30px;
+    display: block;
+}
+#myTabContent .tab-pane .showtime__row:last-of-type {
+    border-bottom: none;
+} 
+.showtime__row {
+    border-bottom: 1px solid #d8d8d8;
+    
+}
+.showtime__row img {
+    border-radius: 10px;
+}
+.showtime__row div p:first-of-type {
+    font-size: 14px;
+    letter-spacing: 2px;
+    color: #ec7532;
+    margin-bottom: 0;
+}
+.showtime__row h3 {
+    font-size: 24px;
+    font-weight: 300;
+    letter-spacing: 1px;
+    color: #101010;
+}
+.showtime__row  a {
+    font-size: 12px;
+    letter-spacing: 4px;
+    color: #ec7532;
+    text-decoration: none;
+    transition: all 0.5s;
+
+}
+.showtime__row a:hover {
+    color: #101010;
+}
+.showtime__viewing {
+    font-size: 12px;
+    letter-spacing: 1.5px;
+     color: #4a4a4a;
+}
+.showtime__viewing button {
+    font-size: 14px;
+    letter-spacing: 2px;
+    color: #717171;
+    background-color: #d8d8d8;
+}
+.showtime__MINS span:last-child {
+    width: 25px;
+    height: 25px;
+    display: inline-block;
+    color: white;
+    background-color:#101010;
+    border-radius: 50%;
+    font-weight: 700;
+    text-align: center;
+    /* cho no bang voi chieu cao la can giua theo chieu doc  */
+    line-height: 25px;
+}
+/* COMMINGSOON  */
+.commingSoon {
+    /* background-image: url(../img/slide-3.png); */
+    background: #101010 url(../img/slide-3.png) ;
+    background-size: cover;
+    color: white;
+}
+.commingSoon p:first-of-type {
+    font-size: 14px;
+    letter-spacing: 2px;
+    color: #ec7532;
+}
+.commingSoon h3 {
+    font-size: 34px;
+    font-weight: 300;
+    letter-spacing: 1px;
+} 
+.commingSoon h2 {
+    margin-bottom: 40px;
+}
+.stars > i {
+    color:#fbbd61;
+
+
+}
+.commingSoon p {
+    margin: 1rem 0;
+}
+.commingSoon a {
+    font-size: 12px;
+    letter-spacing: 4px;
+    color: #ec7532;
+    text-decoration: none;
+    transition: all 0.5s;
+
+}
+.commingSoon a:hover {
+    color: white;
+}
+.commingsoon__video {
+    position: relative;
+}
+.commingsoon__video i {
+    position: absolute;
+    /* cawn giua  */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%) scale(1);
+    /* tao vien tron xung quanh nut play  */
+    width: 80px;
+    height: 80px;
+    text-align: center;
+    line-height: 80px;
+    border: 1px solid #ec7532;
+    border-radius: 50%;
+    font-size: 25px;
+    transition: all 0.5s;
+    color: white;
+    
+
+}
+.commingsoon__video:hover i {
+    transform: translate(-50%,-50%) scale(0.9);
+}
+/* MOVIELIST  */ 
+.movieList {
+    background-color: #101010;
+}
+/* TAO NEN DEN PHU LEN  */
+.movielist__item {
+    position: relative;
+    border-radius: 10px;
+    overflow: hidden;
+}
+.movielist__item__overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #101010;
+    opacity: 0.6;
+    transition: all 0.5s;
+}
+.movielist__item:hover .movielist__item__overlay {
+    opacity: 0;
+}
+/* CONTACT  */
+.contact__content {
+    text-align: center;
+}
+.contact__content p:first-child {
+    font-size: 23px;
+    color: #4a4a4a;
+    letter-spacing: 1px;
+    font-weight: 300;
+}
+.contact__content a {
+    font-size: 46px;
+    color: #fbbd61;
+    text-decoration: none;
+}
+/* FOOTER  */
+footer {
+    background-color: #101010;
+}
+footer h3 {
+    font-size: 16px;
+    color: #ec7532;
+    letter-spacing: 2px;
+    margin-bottom: 15px;
+}
+footer p {
+    font-size: 13px;
+    color: white;
+    letter-spacing: 1.5ps;
+    padding: 3px 0;
+    transition: all 0.5s;
+}
+footer p:hover {
+    color: #fbbd61;
+}
+.footer__copyright {
+    border-top: 1px solid rgba(255,255,255,0.1);
+    color: white;
+    padding: 15px;
+}
+.footer__copyright p {
+    margin-bottom: 0;
+}
+
